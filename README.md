@@ -1,5 +1,5 @@
 # Blockchain Developer Bootcamp Final Project
-
+##First Idea
 To facilitate the 3D model designers/Makers  to  mint and  sell their  3D design models as nfts without the need for a centralized agency. 3D design files are then used by owners  to print to give physical shape to designs using 3D Printers
 
 # Project Workflow
@@ -9,3 +9,6 @@ To facilitate the 3D model designers/Makers  to  mint and  sell their  3D design
  2. Designers will be authenticated using Metamask to register their design files and mint tokens with base price.
  3. Clients will also be authenticated  to be able to see minted NFTs (Design Files) and optionally can become owners by collecting/buying them.
  4. On every sell order of particular design NFT, original Designer gets some percentage of sell price.
+
+ ## Second Idea
+  To create Govt. Regulated NFT for Real Estate sector.
