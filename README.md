@@ -1,6 +1,6 @@
 # Blockchain Developer Bootcamp Final Project
-## First Idea
-To facilitate the 3D model designers/Makers  to  mint and  sell their  3D design models as nfts without the need for a centralized agency. 3D design files are then used by owners  to print to give physical shape to designs using 3D Printers
+## REAL ESTATE TOKENIZATION DAPP
+Recording and Tracking of Asset ownership  including Land, Housing and Real Estate has been challenging and cubersome task since the distant past. As part of this project we design and develop non fungible real esate token DApp to represent various aspects and happenenings in the city pertaing to Real Estate (Land, Building rtc.) 
 
 # Project Workflow
 
@@ -10,5 +10,4 @@ To facilitate the 3D model designers/Makers  to  mint and  sell their  3D design
  3. Clients will also be authenticated  to be able to see minted NFTs (Design Files) and optionally can become owners by collecting/buying them.
  4. On every sell order of particular design NFT, original Designer gets some percentage of sell price.
 
- ## Second Idea
-  To create Govt. Regulated NFT for Real Estate sector.
+
