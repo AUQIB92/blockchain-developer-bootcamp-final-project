@@ -1,6 +1,6 @@
-# Blockchain Developer Bootcamp Final Project
-## REAL ESTATE TOKENIZATION DAPP
-Recording and Tracking of Asset ownership  including Land, Housing and Real Estate has been challenging and cumbersome task since the distant past. As part of this project we design and develop non fungible real esate token DApp to represent various aspects and happenenings in the city pertaing to Real Estate (Land, Building rtc.) 
+# REAL ESTATE TOKENIZATION DApp
+## Problem Definition
+Recording and Tracking of Asset ownership  including Land, Housing and Real Estate has been challenging and cumbersome task since the distant past. As part of this project we design and develop non fungible real esate token DApp to represent various aspects and happenenings in the city pertainingg to Real Estate (Land, Building rtc.) with some sought of Regulation to cpmpily local laws.
 
 # Project Workflow
 
