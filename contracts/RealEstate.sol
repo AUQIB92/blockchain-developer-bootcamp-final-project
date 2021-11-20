@@ -19,7 +19,7 @@ contract RealEstate is ERC721
         uint256 assetID;
         string _type;
         bool avlToBuy;
-      //  AssetDetails det;
+      address owner;
         uint128 price;
         
         
@@ -52,7 +52,8 @@ contract RealEstate is ERC721
        assets[assetCount]._type=_type;
        assets[assetCount].avlToBuy = false;
        assets[assetCount].price=0;
-   
+
+   assets[assetCount].owner=owner;
        emit assetRegistered(owner,assetCount);
        emit Transfer(address(0),owner,assetCount);
         _mint(owner,assetCount);
@@ -66,8 +67,44 @@ contract RealEstate is ERC721
       owner= ownerOf(id);
       canBuy=assets[id].avlToBuy;
       _type=assets[id]._type;
+
     }
+      function fetchMyAssets() public view returns (Asset[] memory) {
     
+   
+    uint currentIndex = 0;
+
+    Asset[] memory items = new Asset[](assetCount);
+    for (uint i = 0; i < assetCount; i++) {
+      if (ownerOf(i) == msg.sender ){
+        
+        Asset storage currentItem = assets[i];
+        items[currentIndex] = currentItem;
+        currentIndex += 1;
+      }
+    
+    
+    }
+    return items;
+    }
+       function fetchAllAssetsForSale() public view returns (Asset[] memory) {
+    
+   
+    uint currentIndex = 0;
+
+    Asset[] memory items = new Asset[](assetCount);
+    for (uint i = 0; i < assetCount; i++) {
+      if (assets[i].avlToBuy == true ){
+        
+        Asset storage currentItem = assets[i];
+        items[currentIndex] = currentItem;
+        currentIndex += 1;
+      }
+    
+    
+    }
+    return items;
+    }
     function setForSale(uint256 assetID,uint128 price) public {
         require(ownerOf(assetID)==msg.sender,"Not owner of Asset");
         require(assets[assetID].avlToBuy==false,"Already Listed For Sale");
@@ -99,6 +136,12 @@ contract RealEstate is ERC721
         
         
     }
+
+
+
+
+
+
     function clearBuyerApproval(uint256 assetId,address approved) public {
         if (assetApprovedToSellTo[assetId]==approved){
             assetApprovedToSellTo[assetId] = address(0);
@@ -120,6 +163,7 @@ contract RealEstate is ERC721
         assets[assetId].avlToBuy = false;
         assets[assetId].price=0;
         transferFrom(from,msg.sender,assetId);
+        assets[assetId].owner=msg.sender;
         emit Transfer(from, msg.sender, assetId);
     }
     
