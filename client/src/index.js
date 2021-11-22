@@ -18,7 +18,7 @@ import blockchainReducer from './blockchainReducer/blockchainReducer';
 import storeSynchronize from 'redux-localstore';
 import { configureStore } from '@reduxjs/toolkit'
 const store = configureStore({ reducer: { blockchainReducer }, devTools: true })
-storeSynchronize(store);
+//storeSynchronize(store);
 ReactDOM.render(
     <Provider store={store}>
     <BrowserRouter>

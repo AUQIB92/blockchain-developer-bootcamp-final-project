@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { ethers } from 'ethers'
+import { useSelector } from 'react-redux';
 import RealEstate from '../contracts/RealEstate.json'
 function MayorPage() {
     const [assetOwner, setAssetOwner] = useState(undefined)
@@ -8,7 +9,7 @@ function MayorPage() {
     const [assetId, setAssetId] = useState(undefined)
     const [assetPrice, setAssetPrice] = useState(undefined)
     const [newAssetId, setnewAssetId] = useState(null);
-    const RealEstateAddress = "0x5500A05a87d5D2d63a98b3B3b86dC853bbfc49DD"
+    const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
     const registerAsset = async () => {
         if (!assetOwner && !assetType) return
         if (typeof window.ethereum !== 'undefined') {
@@ -35,7 +36,7 @@ function MayorPage() {
             console.log({ provider })
             const signer = provider.getSigner()
             const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
-            const transaction = await contract.appreciate(assetId, assetPrice)
+            const transaction = await contract.appreciate(assetId,ethers.utils.parseUnits(assetPrice, 'ether'))
             await transaction.wait()
             //contract.on("assetRegistered",(address,assetId)=>{setnewAssetId(assetId)})
            
@@ -96,7 +97,7 @@ function MayorPage() {
                     </div>
                     <div className="form-group">
                         <label>New price</label>
-                        <input type="text" className="form-control" id="inputAssetDescription" placeholder="Appreciate Value" onChange={e => setAssetPrice(e.target.value) } />
+                        <input type="string" className="form-control" id="inputAssetDescription" placeholder="Appreciate Value" onChange={e => setAssetPrice(e.target.value) } />
                     </div>
                     <button className="btn btn-primary mt-3" onClick={Appreciate}>Appreciate </button>
                 </div>
@@ -111,7 +112,7 @@ function MayorPage() {
                     </div>
                     <div className="form-group">
                         <label>New price</label>
-                        <input type="text" className="form-control" id="inputAssetDescription" placeholder="Deappreciate Value" onChange={e => setAssetPrice(e.target.value) } />
+                        <input type="string" className="form-control" id="inputAssetDescription" placeholder="Deappreciate Value" onChange={e => setAssetPrice(e.target.value) } />
                     </div>
                     <button className="btn btn-primary mt-3" onClick={DeAppreciate}>DeAppreciate </button>
                 </div>

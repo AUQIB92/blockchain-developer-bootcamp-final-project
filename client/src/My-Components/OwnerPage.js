@@ -2,12 +2,13 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers'
 import MyAssetDetail from './MyAssetDetail';
+import { useSelector} from 'react-redux';
 import RealEstate from '../contracts/RealEstate.json'
 function OwnerPage() {
     const [assetId, setAssetId] = useState(undefined)
     const [assetPrice, setAssetPrice] = useState(undefined)
     const [myAssets, setMyAssets] = useState(0)
-    const RealEstateAddress = "0x5500A05a87d5D2d63a98b3B3b86dC853bbfc49DD"
+    const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
     useEffect(() => {
         // const onSale = async (assetID) => {
         //     await MyOwnedAssets()
@@ -18,8 +19,11 @@ function OwnerPage() {
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 console.log({ provider })
                 const signer = provider.getSigner()
+                console.log(RealEstateAddress)
                 const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
                 var transaction = await contract.fetchMyAssets()
+                if (transaction!='null')
+                {
                 transaction = transaction.filter(asset => asset._type != "").map(c => {
                     return {
                         assetID: c.assetID.toString(),
@@ -32,7 +36,11 @@ function OwnerPage() {
                 setMyAssets(transaction)
                 console.log(myAssets)
 
-
+            }
+            else
+            {
+                console.log("error")
+            }
             }
             else {
                 console.log("Refresh Page to Connect to MetaMAsk Wallet")
@@ -41,7 +49,7 @@ function OwnerPage() {
 
         MyOwnedAssets()
 
-    }, [])
+    }, )
 
 
     //     const onSale = (assetId) => {
@@ -51,22 +59,7 @@ function OwnerPage() {
     //        console.log(assetId)
     //    }
 
-    const setForSale = async () => {
-        if (!assetId && !assetPrice) return
-        if (typeof window.ethereum !== 'undefined') {
-
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            console.log({ provider })
-            const signer = provider.getSigner()
-            const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
-            const transaction = await contract.setForSale(assetId, Number(assetPrice))
-            await transaction.wait();
-            console.log("Successfully listed in Markrtplace for sale")
-        }
-        else {
-            console.log("Refreseh Page to Connect to MetaMAsk Wallet")
-        }
-    }
+    
     return (
 
         <div className="box-register" style={{ borderRight: "" }}>

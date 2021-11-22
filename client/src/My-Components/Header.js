@@ -4,7 +4,7 @@ import logo from '../Images/Home.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ethers } from 'ethers'
-import { login, getRealContract } from "../web3Helper";
+import { login, getRealContract, loginChange } from "../web3Helper";
 import metamask from '../Images/metamask.png';
 import RealEstate from '../contracts/RealEstate.json'
 export default function Header(props) {
@@ -30,26 +30,12 @@ export default function Header(props) {
 
 
   const doLogin = async () => {
-    const web3 = await login();
+     await login(dispatch);
 
-    // // Use web3 to get the user's accounts.
-    const address = await web3.eth.getAccounts()
-    if (address.length > 0) {
-      const balance = await web3.eth.getBalance(address[0]);
-      // // Get the contract instance.
-      const networkId = await web3.eth.net.getId();
-
-      dispatch({ type: 'change_address', payload: address[0] });
-      dispatch({ type: 'change_balance', payload: balance });
-      dispatch({ type: 'change_chanId', payload: networkId });
-    }
-
+    
   }
 
-  useEffect(() => {
-   doLogin()
-    
-  }, [doLogin]);
+ 
 
   const getMayor = useCallback(() => {
     (async function () {
@@ -62,9 +48,9 @@ export default function Header(props) {
   }, [RealEstateAddress, dispatch, mayor]);
 
   useEffect(() => {
-    getMayor()
-    
-  }, [getMayor]);
+   
+     loginChange(dispatch);
+  }, [loginChange,dispatch]);
 
 
 
@@ -95,10 +81,10 @@ export default function Header(props) {
 
         <div>
           <button type="button" className="btn-metamask btn btn-secondary d-flex" onClick={() => {
-            if (address) setshowBalanceMenu(!showBalanceMenu)
-            else {
+            
               doLogin();
-            }
+              setshowBalanceMenu(!showBalanceMenu)
+            
           }}>
             <img src={metamask} alt="metamask"></img>
             {address ? <span>{address}</span> : <span>Login</span>}
