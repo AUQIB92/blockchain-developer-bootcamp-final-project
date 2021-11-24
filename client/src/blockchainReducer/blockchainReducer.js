@@ -3,7 +3,7 @@ const defaultState = {
     address: "",
     balance: 0,
     chainId: 0,
-    realContract: "0xcDe35f0EE92CfC4B291199c4080Eb8f510617eb1",
+    realContract: "0x9F5DE1EAcd0039a4F855e9414F5013b3c0d7bC5Fs",
     mayor: null
 
 };

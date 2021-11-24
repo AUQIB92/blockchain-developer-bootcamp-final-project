@@ -65,11 +65,10 @@ function MyAssetDetail(props) {
                     <span>Type: {props.type}</span>
                     {!enableSale && props.avlToBuy && <span>Price:{ ethers.utils.formatEther(props.assetPrice).toString()} ETH</span>}
 
-                    {!enableSale && props.avlToBuy && <span>Price: {ethers.utils.formatEther(props.assetPrice).toString()} ETH</span>}
                     {enableSale && <input type="string" className="form-control" id="Price" onChange={e => setAssetPrice((e.target.value))} step="any" placeholder="Price"  />}
                 </div>
                 {!enableSale && !props.avlToBuy && <button className="btn btn-primary m-1" onClick={() => { setEnableSale(true) }}>Set Price</button>}
-                {enableSale && <button className="btn btn-primary m-1" onClick={() => { setSale(); clickSale(props.assetId)}}>Sale</button>}
+                {enableSale && <button className="btn btn-primary m-1" onClick={() => { setSale(); clickSale(props.assetId)}}>Put on Sale</button>}
                 {props.avlToBuy&&<input type="string" className="form-control" id="Address"  onChange={e => setApprOwner(e.target.value)} step="any" placeholder="Buyer Address"  />}
                 {apprOwner&&props.avlToBuy&&<button className="btn btn-primary m-1" onClick={ApproveBuyer}>Approve Buyer</button>}
             </div>

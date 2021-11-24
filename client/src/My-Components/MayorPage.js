@@ -77,7 +77,7 @@ function MayorPage() {
                         <label>Asset Type</label>
                         <input type="text" className="form-control" id="inputAssetType" onChange={e => setAssetType(e.target.value)} placeholder="Asset Type" />
                     </div>
-                    <button className="btn btn-primary mt-3" onClick={registerAsset}>Save </button>
+                    <button className="btn btn-primary mt-3" onClick={registerAsset}>Register </button>
                     {newAssetId && <div className="mt-3 alert alert-primary" role="alert">
             Asset Registered successfully, with  AssetId: {newAssetId.toString('hex')}
         </div>}
