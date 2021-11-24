@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers'
 import web3 from "web3"
 import { useSelector} from 'react-redux';
@@ -9,7 +9,15 @@ function MyAssetDetail(props) {
     const [assetPrice, setAssetPrice] = useState(undefined)
     const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
     const [enableSale, setEnableSale] = useState(false);
-    let RealPrice;
+   
+
+
+    const clickSale = (assetID) => {
+        //call contract
+        //
+        props.onSale(assetID);
+    }
+
     const setSale = async () => {
         setAssetId(props.assetID)
         if ( !assetPrice ) return
@@ -47,6 +55,8 @@ function MyAssetDetail(props) {
             console.log("Refreseh Page to Connect to MetaMAsk Wallet")
         }
     }
+   
+     
     
     return (<div>
         <div className="card m-4" style={{ maxWidth: "30rem" }}>
@@ -58,7 +68,7 @@ function MyAssetDetail(props) {
                     {enableSale && <input type="string" className="form-control" id="Price" onChange={e => setAssetPrice((e.target.value))} step="any" placeholder="Price"  />}
                 </div>
                 {!enableSale && !props.avlToBuy && <button className="btn btn-primary m-1" onClick={() => { setEnableSale(true) }}>Set Price</button>}
-                {enableSale && <button className="btn btn-primary m-1" onClick={setSale}>Sale</button>}
+                {enableSale && <button className="btn btn-primary m-1" onClick={() => { setSale(); clickSale(props.assetId)}}>Sale</button>}
                 {props.avlToBuy&&<input type="string" className="form-control" id="Address"  onChange={e => setApprOwner(e.target.value)} step="any" placeholder="Buyer Address"  />}
                 {apprOwner&&props.avlToBuy&&<button className="btn btn-primary m-1" onClick={ApproveBuyer}>Approve Buyer</button>}
             </div>

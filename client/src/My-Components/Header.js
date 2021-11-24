@@ -48,9 +48,9 @@ export default function Header(props) {
   }, [RealEstateAddress, dispatch, mayor]);
 
   useEffect(() => {
-   
+   getMayor(dispatch)
      loginChange(dispatch);
-  }, [loginChange,dispatch]);
+  }, [getMayor,]);
 
 
 
@@ -80,12 +80,12 @@ export default function Header(props) {
 
 
         <div>
-          <button type="button" className="btn-metamask btn btn-secondary d-flex" onClick={() => {
-            
-              doLogin();
-              setshowBalanceMenu(!showBalanceMenu)
-            
-          }}>
+        <button type="button" className="btn-metamask btn btn-secondary d-flex" onClick={() => {
+          if (address) setshowBalanceMenu(!showBalanceMenu)
+          else {
+            doLogin();
+          }
+        }}>
             <img src={metamask} alt="metamask"></img>
             {address ? <span>{address}</span> : <span>Login</span>}
           </button>

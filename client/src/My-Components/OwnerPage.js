@@ -9,10 +9,13 @@ function OwnerPage() {
     const [assetPrice, setAssetPrice] = useState(undefined)
     const [myAssets, setMyAssets] = useState(0)
     const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
-    useEffect(() => {
-        // const onSale = async (assetID) => {
-        //     await MyOwnedAssets()
-        // }
+   
+    const onSale = (assetId) => {
+        (async () => {
+           await MyOwnedAssets();
+       })();
+       console.log(assetId)
+   }
         const MyOwnedAssets = async () => {
 
             if (typeof window.ethereum !== 'undefined') {
@@ -22,7 +25,7 @@ function OwnerPage() {
                 console.log(RealEstateAddress)
                 const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
                 var transaction = await contract.fetchMyAssets()
-                if (transaction!='null')
+                if (transaction!=='null')
                 {
                 transaction = transaction.filter(asset => asset._type != "").map(c => {
                     return {
@@ -47,10 +50,12 @@ function OwnerPage() {
             }
         };
 
-        MyOwnedAssets()
-
-    }, )
-
+       
+        useEffect(() => {
+            // setMyAssets([]);
+            MyOwnedAssets()
+           }, [myAssets]);
+    
 
     //     const onSale = (assetId) => {
     //         (async () => {
@@ -75,7 +80,7 @@ function OwnerPage() {
                     </nav>
                     <div className="d-flex flex-row mt-3">
                         {myAssets.length > 0 &&
-                            myAssets.map(asset => <MyAssetDetail key={asset.assetID} assetPrice={asset.price} avlToBuy={asset.avlToBuy} assetID={asset.assetID} type={asset._type} owner={asset.owner} ></MyAssetDetail>)}
+                            myAssets.map(asset => <MyAssetDetail key={asset.assetID} assetPrice={asset.price} avlToBuy={asset.avlToBuy} assetID={asset.assetID} type={asset._type} owner={asset.owner} onSale={onSale}  ></MyAssetDetail>)}
                     </div>
                 </div>
 

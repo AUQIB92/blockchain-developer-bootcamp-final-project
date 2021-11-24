@@ -1,9 +1,9 @@
 import {defineState} from 'redux-localstore';
 const defaultState = {
-    address: "0x",
+    address: "",
     balance: 0,
     chainId: 0,
-    realContract: "0x9601cD9DeDE694A0a933856a406Da5Ab53EC5894",
+    realContract: "0x9F5DE1EAcd0039a4F855e9414F5013b3c0d7bC5F",
     mayor: null
 
 };
