@@ -39799,10 +39799,16 @@
       "links": {},
       "address": "0xe70d68dFbBA8aF97B3Da4b0D0BaBAd1BE3425D57",
       "transactionHash": "0xcf98ec4e2bf7b2c04a183583fe4c3f9e34ec8dab3b563c22b31ffcdcb46eeed5"
+    },
+    "1637758491004": {
+      "events": {},
+      "links": {},
+      "address": "0xcDe35f0EE92CfC4B291199c4080Eb8f510617eb1",
+      "transactionHash": "0xabced33b90b22cb67048b366124bb11640f4c69763b99c3a7380e29506d667f0"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-11-24T11:56:50.423Z",
+  "updatedAt": "2021-11-24T12:55:20.243Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "Auqib Hamid Lone",
