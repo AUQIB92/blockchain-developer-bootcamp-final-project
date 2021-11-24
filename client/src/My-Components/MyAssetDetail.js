@@ -63,11 +63,9 @@ function MyAssetDetail(props) {
                 <h5 className="card-title">AssetId: {props.assetID}</h5>
                 <div className="card-text d-flex flex-column m-1 mb-3">
                     <span>Type: {props.type}</span>
-<<<<<<< HEAD
                     {!enableSale && props.avlToBuy && <span>Price:{ ethers.utils.formatEther(props.assetPrice).toString()} ETH</span>}
-=======
+
                     {!enableSale && props.avlToBuy && <span>Price: {ethers.utils.formatEther(props.assetPrice).toString()} ETH</span>}
->>>>>>> 50b0d4f38d555dd47b9048925a472cd69162dd05
                     {enableSale && <input type="string" className="form-control" id="Price" onChange={e => setAssetPrice((e.target.value))} step="any" placeholder="Price"  />}
                 </div>
                 {!enableSale && !props.avlToBuy && <button className="btn btn-primary m-1" onClick={() => { setEnableSale(true) }}>Set Price</button>}
