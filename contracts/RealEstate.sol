@@ -4,8 +4,15 @@ pragma solidity 0.8.3;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract RealEstate is ERC721 {
+/// @title Real Estate Tokenisation and Markrtplace
+/// @author Auqib Hamid Lone
+/// @dev This contract allows Mayor to register Users property by minting  NFT and  a marketplace for users to sell and buy registered RealEsatet as NFTS.
+/// @dev Inherits ReentrancyGuard which is deployed on buy() function.
+/// @dev Uses Counters library for tracking asset IDs for the NFTS .
+
+contract RealEstate is ERC721, ReentrancyGuard {
     using Counters for Counters.Counter;
     Counters.Counter private _assetId;
 
@@ -17,7 +24,6 @@ contract RealEstate is ERC721 {
         uint256 price;
     }
 
-    
     // Mappings
     mapping(uint256 => Asset) public assets;
     // mapping(uint256=>address) private assetOwner;
@@ -29,19 +35,21 @@ contract RealEstate is ERC721 {
     address public cityMayor;
 
     constructor() public ERC721("Real Estate Tokensiation", "PEST") {
-       
         cityMayor = msg.sender;
     }
-    modifier onlyMayor()
-    {
-        require(msg.sender==cityMayor);
-        _;
 
+    modifier onlyMayor() {
+        require(msg.sender == cityMayor);
+        _;
     }
 
-    // Registartion  Only by City Mayor
-    function registerAsset(address owner, string memory _type) public onlyMayor  {
-        
+    /// @notice Registers Real Estate and  Mints a new PEST NFT token corresponding to Regstered Real Estate.
+    /// @dev Triggers an event with Asset Id and Owner of NFT
+
+    function registerAsset(address owner, string memory _type)
+        public
+        onlyMayor
+    {
         uint256 assetCount = _assetId.current();
         assets[assetCount].assetID = assetCount;
         assets[assetCount]._type = _type;
@@ -55,10 +63,12 @@ contract RealEstate is ERC721 {
         totalAssetsOwned[owner]++;
         _assetId.increment();
     }
-
-    function getAssetDetails(uint256 id)
-        public
-        view
+///    @param id AssetID of Asset.
+///    @return owner Owner of Address.
+///    @return canBuy Available for buying.
+///    @return _type Asset Type.
+///    
+    function getAssetDetails(uint256 id) public  view
         returns (
             address owner,
             bool canBuy,
@@ -70,6 +80,8 @@ contract RealEstate is ERC721 {
         _type = assets[id]._type;
     }
 
+    /// @dev Fetch details of all Assets owned by Address (Owner)
+    /// @return  All  details of the Assets  as Asset[] owned by address
     function fetchMyAssets() public view returns (Asset[] memory) {
         uint256 currentIndex = 0;
         uint256 assetCount = _assetId.current();
@@ -84,6 +96,8 @@ contract RealEstate is ERC721 {
         return items;
     }
 
+    /// @dev Fetch details of all Assets avialable for sale
+    /// @return  All  details of the  Assets avialable for sale
     function fetchAllAssetsForSale() public view returns (Asset[] memory) {
         uint256 currentIndex = 0;
         uint256 assetCount = _assetId.current();
@@ -98,6 +112,8 @@ contract RealEstate is ERC721 {
         return items;
     }
 
+    /// @dev Sets price of the Assets and lists them for sale
+
     function setForSale(uint256 assetID, uint128 price) public {
         require(ownerOf(assetID) == msg.sender, "Not owner of Asset");
         require(assets[assetID].avlToBuy == false, "Already Listed For Sale");
@@ -105,34 +121,43 @@ contract RealEstate is ERC721 {
         assets[assetID].price = price;
     }
 
-    function renuvate(uint256 assetId, uint128 value) public {
+    /// @dev Allows Owners to increase price  of owned  Assets
+
+    function renuvate(uint256 assetId, uint256 value) public {
         require(msg.sender == ownerOf(assetId), "NotaMayor");
         assets[assetId].price = assets[assetId].price + value;
     }
 
-    function appreciate(uint256 assetId, uint128 value) public  onlyMayor {
-        
+    /// @dev Allows Mayor  to increase price  of   Assets as part of Appreciation
+    function appreciate(uint256 assetId, uint128 value) public onlyMayor {
         assets[assetId].price = assets[assetId].price + value;
     }
 
-    function depreciate(uint256 assetId, uint128 value) public onlyMayor  {
-        
+    /// @dev Allows Mayor  to decraese price  of   Assets as part of Depreciation
+    function depreciate(uint256 assetId, uint128 value) public onlyMayor {
         assets[assetId].price = assets[assetId].price - value;
     }
 
+    /// @dev Approves Buyer to buy asset
     function approveBuyer(uint256 assetId, address buyer) public {
         require(msg.sender == ownerOf(assetId));
         approve(buyer, assetId);
         assetApprovedToSellTo[assetId] = buyer;
     }
 
+    /// @dev Clears the Approval of Buyer on  asset
     function clearBuyerApproval(uint256 assetId, address approved) public {
         if (assetApprovedToSellTo[assetId] == approved) {
             assetApprovedToSellTo[assetId] = address(0);
         }
     }
 
-    function buy(address payable from, uint256 assetId) public payable {
+    /// @dev Allows approved buyers to buy assets from Market Place
+    function buy(address payable from, uint256 assetId)
+        public
+        payable
+        nonReentrant
+    {
         require(_exists(assetId), " Asset not Available");
         require(ownerOf(assetId) != msg.sender, " Asset already owned");
         require(assets[assetId].avlToBuy == true, "Not avialbele for Sale");
@@ -150,6 +175,7 @@ contract RealEstate is ERC721 {
         emit Transfer(from, msg.sender, assetId);
     }
 
+    /// @dev Checks whether Buyer is approved
     function isApproved(address spender, uint256 assetId)
         internal
         view
@@ -159,4 +185,9 @@ contract RealEstate is ERC721 {
 
         return (assetApprovedToSellTo[assetId] == spender);
     }
+
+    /// @dev receive() and fallback() functions to allow the contract to receive ETH and data
+    receive() external payable {}
+
+    fallback() external payable {}
 }
