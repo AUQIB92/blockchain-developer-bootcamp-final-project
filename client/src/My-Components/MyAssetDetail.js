@@ -56,7 +56,6 @@ function MyAssetDetail(props) {
         }
     }
    
-     
     
     return (<div>
         <div className="card m-4" style={{ maxWidth: "30rem" }}>
