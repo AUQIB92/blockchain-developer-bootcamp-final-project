@@ -136,6 +136,7 @@ contract RealEstate is ERC721, ReentrancyGuard {
 
     /// @dev Allows Mayor  to decraese price  of   Assets as part of Depreciation
     function depreciate(uint256 assetId, uint128 value) public onlyMayor {
+        require( assets[assetId].avlToBuy==true);
         assets[assetId].price = assets[assetId].price - value;
     }
 
