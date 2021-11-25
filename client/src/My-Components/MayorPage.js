@@ -9,8 +9,11 @@ function MayorPage() {
     const [assetId, setAssetId] = useState(undefined)
     const [assetPrice, setAssetPrice] = useState(undefined)
     const [newAssetId, setnewAssetId] = useState(null);
+    const [errorTxn,setErrorTxn]=useState(null);
+    const [msg,setMsg]=useState(false)
     const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
     const registerAsset = async () => {
+        console.log(RealEstateAddress)
         if (!assetOwner && !assetType) return
         if (typeof window.ethereum !== 'undefined') {
 
@@ -20,6 +23,7 @@ function MayorPage() {
             const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
             const transaction = await contract.registerAsset(assetOwner, assetType)
             await transaction.wait()
+            setMsg(true);
             contract.on("assetRegistered",(address,assetId)=>{setnewAssetId(assetId)})
            
         }
@@ -31,15 +35,22 @@ function MayorPage() {
     const Appreciate = async () => {
         if (!assetOwner && !assetPrice) return
         if (typeof window.ethereum !== 'undefined') {
-
+try{
+        
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             console.log({ provider })
             const signer = provider.getSigner()
             const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
             const transaction = await contract.appreciate(assetId,ethers.utils.parseUnits(assetPrice, 'ether'))
             await transaction.wait()
+            setErrorTxn(null)
+            setMsg(true)
             //contract.on("assetRegistered",(address,assetId)=>{setnewAssetId(assetId)})
-           
+}
+catch(error)
+{
+   setErrorTxn(error)
+}
         }
         else {
             console.log("Refresh Page to Connect to MetaMAsk Wallet")
@@ -55,6 +66,8 @@ function MayorPage() {
             const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
             const transaction = await contract.depreciate(assetId, assetPrice)
             await transaction.wait()
+            setErrorTxn(null)
+            setMsg(true)
             //contract.on("assetRegistered",(address,assetId)=>{setnewAssetId(assetId)})
            
         }
@@ -100,6 +113,14 @@ function MayorPage() {
                         <input type="string" className="form-control" id="inputAssetDescription" placeholder="Appreciate Value" onChange={e => setAssetPrice(e.target.value) } />
                     </div>
                     <button className="btn btn-primary mt-3" onClick={Appreciate}>Appreciate </button>
+                    {msg &&!errorTxn &&  <div className="mt-3 alert alert-success" role="alert">
+             Asset Value Appreciated  by {assetPrice} ETH
+        </div>}
+                    {errorTxn && <div className="mt-3 alert alert-danger" role="alert">
+            Error on Txn, Asset not on Sale
+           
+        </div>}
+        
                 </div>
             </div>
             <div className="box-register" style={{ borderRight: "" }}>
@@ -115,6 +136,11 @@ function MayorPage() {
                         <input type="string" className="form-control" id="inputAssetDescription" placeholder="Deappreciate Value" onChange={e => setAssetPrice(e.target.value) } />
                     </div>
                     <button className="btn btn-primary mt-3" onClick={DeAppreciate}>DeAppreciate </button>
+                    {msg &&!errorTxn &&  <div className="mt-3 alert alert-success" role="alert">
+             Asset Value Depreciated  by {assetPrice} ETH
+        </div>}
+                    {errorTxn && <div className="mt-3 alert alert-danger" role="alert">
+            Error on Txn, Asset not on Sale
                 </div>
             </div>
 

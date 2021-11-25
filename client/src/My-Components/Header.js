@@ -16,7 +16,7 @@ export default function Header(props) {
   const [showBalanceMenu, setshowBalanceMenu] = useState(false);
   const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
 
-
+console.log(RealEstateAddress)
 
 
 
@@ -39,17 +39,18 @@ export default function Header(props) {
 
   const getMayor = useCallback(() => {
     (async function () {
-      if (!mayor) {
-        console.log(getRealContract(RealEstateAddress))
-        const mayorContract = await getRealContract(RealEstateAddress).cityMayor.call();
-        dispatch({ type: "set_mayor", payload: mayorContract });
+      if (!mayor&&RealEstateAddress) {
+        console.log(RealEstateAddress)
+        const mayorContract = await getRealContract(RealEstateAddress);
+        var mayorReceived = await mayorContract.cityMayor.call().call();
+        dispatch({ type: "set_mayor", payload: mayorReceived });
       }
     })();
   }, [RealEstateAddress, dispatch, mayor]);
 
   useEffect(() => {
    getMayor(dispatch)
-     loginChange(dispatch);
+    loginChange(dispatch);
   }, [getMayor,]);
 
 

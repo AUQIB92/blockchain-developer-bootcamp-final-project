@@ -20,9 +20,10 @@ function MarketPalce() {
                 console.log({ provider })
                 const signer = provider.getSigner()
                 const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
+               if(contract!==null){
                 var transaction = await contract.fetchAllAssetsForSale()
                 console.log(transaction)
-                if (transaction != null) {
+                if (transaction !== null) {
                     transaction = transaction.filter(asset => asset._type != "").map(c => {
 
                         return {
@@ -41,6 +42,12 @@ function MarketPalce() {
                     console.log("erorr")
                 }
             }
+        
+        else
+        {
+            console.log("No contract")
+        }
+    }
             else {
                 console.log("Refresh Page to Connect to MetaMAsk Wallet")
             }
