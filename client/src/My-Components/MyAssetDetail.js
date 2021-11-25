@@ -10,7 +10,7 @@ function MyAssetDetail(props) {
     const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
     const [enableSale, setEnableSale] = useState(false);
    
-
+    const address = useSelector(({ blockchainReducer }) => blockchainReducer.address);
 
     const clickSale = (assetID) => {
         //call contract
@@ -57,7 +57,7 @@ function MyAssetDetail(props) {
     }
    
     
-    return (<div>
+    return (address&&<div>
         <div className="card m-4" style={{ maxWidth: "30rem" }}>
             <div className="card-body">
                 <h5 className="card-title">AssetId: {props.assetID}</h5>
