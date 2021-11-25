@@ -11,5 +11,5 @@ Recording and Tracking of Asset ownership  including Land, Housing and Real Esta
  3. We also incorporated an assessment phase that allows city Mayor to appreciate or deppreciate the asset by either increasing or decreasing the asset price.
  4. As part of the future work, we also plan to include  auction mechanism and other governance realted stuff.
 
-![alt text](http://url/to/img.png)
+
 
