@@ -35,11 +35,13 @@ const address_changed = async (dispatch) => {
     const balance = await web3.eth.getBalance(address[0]);
     // // Get the contract instance.
     const networkId = await web3.eth.net.getId();
-
+    const NetworkData = await RealEstate.networks[networkId];
+    console.log(NetworkData.address)
     dispatch({
       type: 'change_address',
       payload: address[0]
     });
+    
     dispatch({
       type: 'change_balance',
       payload: balance
@@ -48,6 +50,12 @@ const address_changed = async (dispatch) => {
       type: 'change_chanId',
       payload: networkId
     });
+    dispatch(
+      {
+        type: 'change_smartcontractaddress',
+        payload: NetworkData.address
+      }
+    );
   }else{
     dispatch({
       type: 'change_address',
@@ -57,11 +65,18 @@ const address_changed = async (dispatch) => {
       type: 'change_balance',
       payload: 0
     });
+    dispatch(
+      {
+        type: 'change_smartcontractaddress',
+        payload: ''
+      }
+    );
     dispatch({
       type: 'change_chanId',
       payload: 0
     });
   }
+
 }
 export const loginChange = async (dispatch) => {
   const res = window.ethereum.on('accountsChanged', function (accounts) {
@@ -87,33 +102,19 @@ export async function login(dispatch) {
   }
 
 }
-export function getRealContract(realStateAddress) {
-  const provider = new ethers.providers.Web3Provider(getMetamask())
-  const realContract = new ethers.Contract(realStateAddress, RealEstate.abi, provider)
-
-  return realContract;
+export async function getRealContract(realEstateAddress) {
+  return new Promise(async (resolve, reject) => {
+    const provider = new ethers.providers.Web3Provider(getMetamask())
+    web3 = new Web3(getMetamask());
+    const networkId = await web3.eth.net.getId();
+    const NetworkData = await RealEstate.networks[networkId];
+    const realContract = new web3.eth.Contract(
+      RealEstate.abi,
+      NetworkData.address,
+      provider
+    );
+    resolve(realContract.methods);
+  });
 }
 
 
-export async function registerAsset(assetOwner, assetType, RealEstateAddress) {
-  if (!assetOwner && !assetType) return
-  if (getMetamask()) {
-
-    const provider = new ethers.providers.Web3Provider(getMetamask());
-    const signer = provider.getSigner()
-    const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
-    const transaction = await contract.registerAsset(assetOwner, assetType)
-    return await transaction.wait()
-
-  } else {
-    console.log("Refreseh Page to Connect to MetaMAsk Wallet")
-  }
-}
-
-export async function listAllAssetsFromOwner(RealEstateAddress) {
-  const provider = new ethers.providers.Web3Provider(getMetamask());
-  const signer = provider.getSigner()
-  const contract = new ethers.Contract(RealEstateAddress, RealEstate.abi, signer)
-
-  return await contract.fetchMyAssets();
-}
