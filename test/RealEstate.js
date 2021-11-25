@@ -84,7 +84,7 @@ contract("RealEstate", accounts => {
         // console.log(result3)
         assert.equal(result3.avlToBuy, true)
     })
-    it('Should Transfer NFT Asset ', async () => {
+    it('Should approve Buyer', async () => {
         const owner = accounts[1];
         const buyer = accounts[2];
         const type = "Building";
@@ -104,7 +104,7 @@ contract("RealEstate", accounts => {
 
 
 
-    it('Should Approve Buyer ', async () => {
+    it('Should Transfer NFT Asset', async () => {
         const owner = accounts[1];
         const buyer = accounts[2];
         const type = "Building";

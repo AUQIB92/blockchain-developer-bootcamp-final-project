@@ -38,6 +38,10 @@ module.exports = {
         version: "0.8.3", // Fetch exact version from solc-bin (default: truffle's version)
       }
     
-    }
+    },
+    plugins: [
+      'truffle-plugin-verify'
+    ]
+
   };
   

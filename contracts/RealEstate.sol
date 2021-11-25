@@ -34,7 +34,7 @@ contract RealEstate is ERC721, ReentrancyGuard {
 
     address public cityMayor;
 
-    constructor() public ERC721("Real Estate Tokensiation", "PEST") {
+    constructor()   ERC721("Real Estate Tokensiation", "PEST")  {
         cityMayor = msg.sender;
     }
 
@@ -130,6 +130,7 @@ contract RealEstate is ERC721, ReentrancyGuard {
 
     /// @dev Allows Mayor  to increase price  of   Assets as part of Appreciation
     function appreciate(uint256 assetId, uint128 value) public onlyMayor {
+        require( assets[assetId].avlToBuy==true);
         assets[assetId].price = assets[assetId].price + value;
     }
 
