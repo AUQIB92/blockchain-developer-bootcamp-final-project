@@ -10,7 +10,7 @@ Recording and Tracking of Asset ownership  including Land, Housing and Real Esta
  3. Approved Buyers will only be able to buy assets which then can sell to other buyers by first approving them.   
  3. We also incorporated an assessment phase that allows city Mayor to appreciate or deppreciate the asset by either increasing or decreasing the asset price.
  4. As part of the future work, we also plan to include  auction mechanism and other governance realted stuff.
-'### Run the  RealEstateDApp Locally
+### Installation Instruction for running  RealEstateDApp Locally
 #### Install truffle
 ```
 npm install -g truffle
