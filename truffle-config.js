@@ -2,7 +2,7 @@ const path = require("path");
 require('dotenv').config()
 
 var HDWalletProvider = require("@truffle/hdwallet-provider");
-console.log(process.env.MNEMONIC);
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
