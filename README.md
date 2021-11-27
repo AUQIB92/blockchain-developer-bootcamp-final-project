@@ -131,7 +131,7 @@ Key files and folders structures are as below:
 
 ## Screencast
 
-[![Watch the video](https://youtu.be/k4KD9x16hZY)
+[![Watch the video]](https://youtu.be/k4KD9x16hZY)
 
 ## Ethereum account (for NFT certification)
 ```
