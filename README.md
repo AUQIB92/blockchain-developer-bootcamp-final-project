@@ -15,6 +15,16 @@ Recording and Tracking of Asset ownership  including Land, Housing and Real Esta
  3. Approved Buyers will only be able to buy assets which then can sell to other buyers by first approving them.   
  3. We also incorporated an assessment phase that allows city Mayor to appreciate or deppreciate the asset by either increasing or decreasing the asset price.
  4. As part of the future work, we also plan to include  auction mechanism and other governance realted stuff.
+
+### Environment on which project was tested
+
+* Operating System: Windows 10 
+* Ethereum client: Ganache-cli
+* Truffle version (truffle version):  v5.4.22 
+* Solidity - 0.8.3 (solc-js)
+* node version (node --version): v14.16.1
+* npm version (npm --version): 6.14.12
+
 ### Installation Instructions for running  RealEstateDApp Locally
 #### Install truffle
 ```
@@ -202,6 +212,26 @@ Key files and folders structures are as below:
         exceptionsHelpers.js
         RealEstate.js
 ```
+## Truffle Test results
+
+```
+
+  Contract: RealEstate
+    √ is owned by Mayor (77ms)
+    √ Should have an address
+    √ NFT Collection Should have a name (63ms)
+    √ NFT Collection Should have a Symbol (54ms)
+    √ Should be able to mint NFT (738ms)
+    √ Addresses other than Mayor Should not be able to mint NFT (440ms)
+    √ Address other than Mayor Should not be able to mint NFT (324ms)
+    √ Should Set NFT for Sale (1299ms)
+    √ Should approve Buyer (1404ms)
+    √ Should Transfer NFT Asset (2628ms)
+
+
+  10 passing (13s)
+
+  ```
 ## Screencast
 
 [![Watch the video]](https://youtu.be/k4KD9x16hZY)
