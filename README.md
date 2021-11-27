@@ -126,9 +126,82 @@ npm start
 ## Directory Structure
 Key files and folders structures are as below:
 
-
-
-
+'''
+   .gitattributes
+│   .gitignore
+│   avoiding_common_attacks.md
+│   deployed_address.txt
+│   design_pattern_decisions.md
+│   LICENSE
+│   package-lock.json
+│   package.json
+│   README.md
+│   truffle-config.js
+│
+├───.vscode
+│       settings.json
+│
+├───contracts
+│       Migrations.sol
+│       RealEstate.sol
+│
+├───migrations
+│       1_initial_migration.js
+│       2-initial_migration.js
+│
+├───public
+│       favicon.ico
+│       index.html
+│       logo192.png
+│       logo512.png
+│       manifest.json
+│       robots.txt
+│
+├───src
+│   │   App.css
+│   │   App.js
+│   │   App.test.js
+│   │   index.css
+│   │   index.js
+│   │   logo.svg
+│   │   serviceWorker.js
+│   │   web3Helper.js
+│   │
+│   ├───blockchainReducer
+│   │       blockchainReducer.js
+│   │
+│   ├───contracts
+│   │       Address.json
+│   │       Context.json
+│   │       Counters.json
+│   │       ERC165.json
+│   │       ERC721.json
+│   │       IERC165.json
+│   │       IERC721.json
+│   │       IERC721Metadata.json
+│   │       IERC721Receiver.json
+│   │       Migrations.json
+│   │       RealEstate.json
+│   │       ReentrancyGuard.json
+│   │       Strings.json
+│   │
+│   ├───Images
+│   │       Home.png
+│   │       metamask.png
+│   │
+│   └───My-Components
+│           Footer.js
+│           Header.js
+│           MarketPlace.js
+│           MayorPage.js
+│           MyAssetDetail.js
+│           MyAssetDetailMarket.js
+│           OwnerPage.js
+│
+└───test
+        exceptionsHelpers.js
+        RealEstate.js
+'''
 ## Screencast
 
 [![Watch the video]](https://youtu.be/k4KD9x16hZY)
