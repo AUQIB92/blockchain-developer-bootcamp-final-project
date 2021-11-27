@@ -240,7 +240,7 @@ Key files and folders structures are as below:
 ```
 0xdb634749715fB7b5B9aD6dF27A2060FE3fF7bd3e
 ```
-#
+
 ## Supporting Documents
 * [Design Pattern Decisions](./design_pattern_decisions.md)
 * [Avoiding Common Attacks](./avoiding_common_attacks.md)
