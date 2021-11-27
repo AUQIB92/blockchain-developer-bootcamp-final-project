@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState,useEffect} from 'react';
 import { ethers } from 'ethers'
 import { useSelector } from 'react-redux';
 import RealEstate from '../contracts/RealEstate.json'
@@ -76,6 +76,12 @@ function MayorPage() {
             console.log("Refresh Page to Connect to MetaMAsk Wallet")
         }
     }
+    useEffect(() => {
+        setMsg(false)
+        setErrorTxn(null)
+
+    },[msg,errorTxn])
+
     return (
         mayor == address && <div className="d-flex flex-row flex-fill">
             <div className="box-register ">

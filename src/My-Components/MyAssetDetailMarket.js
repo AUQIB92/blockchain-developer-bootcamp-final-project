@@ -10,6 +10,12 @@ function MyAssetDetailMarket(props) {
     const [enableSale, setEnableSale] = useState(false);
     const [errorTxn, setErrorTxn] = useState(null);
     const address = useSelector(({ blockchainReducer }) => blockchainReducer.address);
+    const clickSale = (assetID) => {
+        //call contract
+        //
+        props.onSale(assetID);
+    }
+
     const buyAsset = async () => {
         setAssetId((props.assetID))
         if (!props.assetPrice) return
@@ -39,7 +45,7 @@ function MyAssetDetailMarket(props) {
     }
 
 
-    return (<div>
+    return (address&&<div>
         <div className="card m-4" style={{ maxWidth: "30rem" }}>
             <div className="card-body">
                 <h5 className="card-title">AssetId: {props.assetID}</h5>
@@ -47,7 +53,7 @@ function MyAssetDetailMarket(props) {
                     <span>Type: {props.type}</span>
                     <span>Owner: {props.owner}</span>
                     <span>Price: {ethers.utils.formatEther(props.assetPrice).toString()} ETH</span>
-                    <button className="btn btn-primary m-1" onClick={buyAsset}>Buy</button>
+                    <button className="btn btn-primary m-1" onClick={() => { buyAsset(); clickSale(props.assetId)}}>Buy</button>
                     {msg && <div className="mt-3 alert alert-success" role="alert">
                         Asset Successfully Bought
                     </div>}

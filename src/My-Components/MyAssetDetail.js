@@ -9,7 +9,8 @@ function MyAssetDetail(props) {
     const [assetPrice, setAssetPrice] = useState(undefined)
     const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
     const [enableSale, setEnableSale] = useState(false);
-   
+   const [msgAppr,setMsgAppr]=useState(false)
+   const [msgSale,setMsgSale]=useState(false)
     const address = useSelector(({ blockchainReducer }) => blockchainReducer.address);
 
     const clickSale = (assetID) => {
@@ -30,6 +31,7 @@ function MyAssetDetail(props) {
             
             const transaction = await contract.setForSale(props.assetID,web3.utils.toWei(assetPrice))
             await transaction.wait();
+            setMsgSale(true)
             console.log("Successfully listed in Markrtplace for sale")
         }
         else {
@@ -49,13 +51,14 @@ function MyAssetDetail(props) {
             
             const transaction = await contract.approveBuyer(props.assetID,apprOwner)
             await transaction.wait();
+            setMsgAppr(true)
             console.log("Successfully Approved")
         }
         else {
             console.log("Refreseh Page to Connect to MetaMAsk Wallet")
         }
     }
-   
+    
     
     return (address&&<div>
         <div className="card m-4" style={{ maxWidth: "30rem" }}>
@@ -69,8 +72,18 @@ function MyAssetDetail(props) {
                 </div>
                 {!enableSale && !props.avlToBuy && <button className="btn btn-primary m-1" onClick={() => { setEnableSale(true) }}>Set Price</button>}
                 {enableSale && <button className="btn btn-primary m-1" onClick={() => { setSale(); clickSale(props.assetId)}}>Put on Sale</button>}
+                 {msgSale && <div className="mt-3 alert alert-success" role="alert">
+                 Asset Put on Sale Successfully
+
+             </div>}
+                
+                
                 {props.avlToBuy&&<input type="string" className="form-control" id="Address"  onChange={e => setApprOwner(e.target.value)} step="any" placeholder="Buyer Address"  />}
                 {apprOwner&&props.avlToBuy&&<button className="btn btn-primary m-1" onClick={ApproveBuyer}>Approve Buyer</button>}
+                {msgAppr && <div className="mt-3 alert alert-success" role="alert">
+                        Buyer Approved
+
+                    </div>}
             </div>
         </div>
     </div>);

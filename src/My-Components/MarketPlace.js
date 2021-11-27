@@ -5,12 +5,23 @@ import { useSelector } from 'react-redux';
 import MyAssetDetailMarket from './MyAssetDetailMarket';
 import RealEstate from '../contracts/RealEstate.json'
 function MarketPalce() {
-    const [assetId, setAssetId] = useState(undefined)
-    const [assetPrice, setAssetPrice] = useState(undefined)
+    
     const [myAssets, setMyAssets] = useState(0)
     const address = useSelector(({ blockchainReducer }) => blockchainReducer.address);
     const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
+    
+    const onSale = (assetId) => {
+        ( () => {
+            
+             AllAssetsForSale();
+       })();
+       
+   }
     useEffect(() => {
+        onSale();
+
+    },[myAssets,onSale,setMyAssets])
+
          
         const AllAssetsForSale = async () => {
             try{
@@ -59,10 +70,7 @@ function MarketPalce() {
 
         };
 
-        AllAssetsForSale();
-
-    })
-
+        
 
     //     const onSale = (assetId) => {
     //         (async () => {
@@ -87,7 +95,7 @@ function MarketPalce() {
                     </nav>
                     <div className="d-flex flex-row mt-3">
                         {myAssets.length > 0 &&
-                            myAssets.map(asset => <MyAssetDetailMarket key={asset.assetID} assetPrice={asset.price} avlToBuy={asset.avlToBuy} assetID={asset.assetID} type={asset._type} owner={asset.owner}  ></MyAssetDetailMarket>)}
+                            myAssets.map(asset => <MyAssetDetailMarket key={asset.assetID} assetPrice={asset.price} avlToBuy={asset.avlToBuy} assetID={asset.assetID} type={asset._type} owner={asset.owner} onSale={onSale} ></MyAssetDetailMarket>)}
                     </div>
                 </div>
 
