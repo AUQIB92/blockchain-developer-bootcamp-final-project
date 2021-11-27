@@ -6,7 +6,7 @@ import RealEstate from '../contracts/RealEstate.json'
 function MayorPage() {
     const [assetOwner, setAssetOwner] = useState(undefined)
     const [assetType, setAssetType] = useState(undefined)
-    const [assetId, setAssetId] = useState(undefined)
+    const [assetId, setAssetId] = useState(0)
     const [assetPrice, setAssetPrice] = useState(undefined)
     const [newAssetId, setnewAssetId] = useState(null);
     const [errorTxn, setErrorTxn] = useState(null);
@@ -26,7 +26,7 @@ function MayorPage() {
             const transaction = await contract.registerAsset(assetOwner, assetType)
             await transaction.wait()
             // setMsg(true);
-            contract.on("assetRegistered", (address, assetId) => { setnewAssetId(assetId) })
+            contract.on("assetRegistered", (address, assetId) => { setnewAssetId(assetId.toString()) })
 
         }
         else {

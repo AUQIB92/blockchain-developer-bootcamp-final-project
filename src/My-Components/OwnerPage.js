@@ -10,12 +10,7 @@ function OwnerPage() {
     const [myAssets, setMyAssets] = useState(0)
     const RealEstateAddress = useSelector(({ blockchainReducer }) => blockchainReducer.realContract);
     const address = useSelector(({ blockchainReducer }) => blockchainReducer.address);
-    const onSale = (assetId) => {
-        (async () => {
-            await MyOwnedAssets();
-        })();
-        console.log(assetId)
-    }
+
     const MyOwnedAssets = async () => {
         if (!address) return
         if (typeof window.ethereum !== 'undefined') {
@@ -49,10 +44,7 @@ function OwnerPage() {
     };
 
 
-    useEffect(() => {
-        // setMyAssets([]);
-        MyOwnedAssets()
-    }, [myAssets]);
+   
 
 
     //     const onSale = (assetId) => {
@@ -78,7 +70,7 @@ function OwnerPage() {
                     </nav>
                     <div className="d-flex flex-row mt-3">
                         {myAssets.length > 0 &&
-                            myAssets.map(asset => <MyAssetDetail key={asset.assetID} assetPrice={asset.price} avlToBuy={asset.avlToBuy} assetID={asset.assetID} type={asset._type} owner={asset.owner} onSale={onSale}  ></MyAssetDetail>)}
+                            myAssets.map(asset => <MyAssetDetail key={asset.assetID} assetPrice={asset.price} avlToBuy={asset.avlToBuy} assetID={asset.assetID} type={asset._type} owner={asset.owner}  ></MyAssetDetail>)}
                     </div>
                 </div>
 
