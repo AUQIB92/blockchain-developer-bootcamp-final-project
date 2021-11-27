@@ -2,10 +2,15 @@
 ## Problem Definition
 Recording and Tracking of Asset ownership  including Land, Housing and Real Estate has been challenging and cumbersome task since the distant past. As part of this project we design and develop non fungible real esate token DApp to represent various aspects and happenenings in the city pertainingg to Real Estate (Land, Building rtc.) with some sought of Regulation to comply local laws.
 
+* The contract is deployed and verified on Ropsten testnet at [0xB52762D80f808737708c06d7dDE3c9D914A21FaC](https://ropsten.etherscan.io/address/0xB52762D80f808737708c06d7dDE3c9D914A21FaC)
+
+* Access the RealEstate DApp at [**RealEstate Website**](https://blockchain-developer-bootcamp-final-project-nine.vercel.app/)
+
+
 ## Project Workflow
 
  1. City Mayor will deploy Smart contract (variant of ERC721)  on Ehereum Network (Main/Testnet) .
- 2. City Mayor will  mint tokens in order to register assets to the real  Owners (It is Pertenent to mention that, only Mayor(Smart Contract Deployer ) will be able to mint Tokens. Sice this is Regulated, in order to test functionalties users are advised to deployed contract first).
+ 2. City Mayor will  mint tokens in order to register assets to the real  Owners (It is pertinent to mention that, only Mayor(Smart Contract Deployer ) will be able to mint Tokens. Since this is Regulated, in order to test functionalties users are advised to deployed smart  contract first).
  3. Owners have the option to put thier assets for sale by setting price and approving buyers to be able to buy specific assets.
  3. Approved Buyers will only be able to buy assets which then can sell to other buyers by first approving them.   
  3. We also incorporated an assessment phase that allows city Mayor to appreciate or deppreciate the asset by either increasing or decreasing the asset price.
@@ -57,8 +62,6 @@ npm start
 - Import accounts from ganache-cli into the metamask browser wallet to make transactions on the DApp.
 
 
-#
-
 ### Run the DApp Etherum mainnet, testnets or other networks
 #### Install truffle
 ```
@@ -91,8 +94,7 @@ MNEMONIC= 'YOUR HD WALLET MNEMONIC'
   * Add your chosen network anywhere below ``networks: {`` , use the code below as an example 
   ```
    ropsten: {
-            networkCheckTimeout: 10000,
-            // must be a thunk, otherwise truffle commands may hang in CI
+            
             provider: () =>
               new HDWalletProvider(process.env.MNEMONIC, process.env.RPC_URL),
             network_id: '3',
@@ -117,5 +119,26 @@ truffle test
 npm start
 ```
 - Open metamask browser wallet and connect network to your chosen network
-- Fund your wallet with Eth or test Eth   to make transactions on the DApp. You can grab test eths from any faucet
+- Fund your wallet with Eth or test Eth   to make transactions on the DApp. You can grab test eths from any faucet.
+
+
+
+## Directory Structure
+Key files and folders structures are as below:
+
+
+
+
+## Screencast
+
+[![Watch the video](https://www.loom.com/share/c78a6c085e324e709e2fd1211d64e2d0)
+
+## Ethereum account (for NFT certification)
+```
+0xdb634749715fB7b5B9aD6dF27A2060FE3fF7bd3e
+```
 #
+## Supporting Documents
+* [Design Pattern Decisions](./design_pattern_decisions.md)
+* [Avoiding Common Attacks](./avoiding_common_attacks.md)
+* [Ropsten Contract Addresses](./deployed_address.txt)

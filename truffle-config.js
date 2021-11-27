@@ -20,7 +20,7 @@ module.exports = {
           },
           ropsten: {
             
-            // must be a thunk, otherwise truffle commands may hang in CI
+            
             provider: () =>
               new HDWalletProvider(process.env.MNEMONIC, process.env.RPC_URL),
             network_id: '3',
