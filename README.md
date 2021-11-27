@@ -131,7 +131,7 @@ Key files and folders structures are as below:
 
 ## Screencast
 
-[![Watch the video](https://www.loom.com/share/c78a6c085e324e709e2fd1211d64e2d0)
+[![Watch the video](https://youtu.be/k4KD9x16hZY)
 
 ## Ethereum account (for NFT certification)
 ```
