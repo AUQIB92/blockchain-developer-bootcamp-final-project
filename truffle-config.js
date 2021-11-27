@@ -19,7 +19,7 @@ module.exports = {
             network_id: "*" // Match any network id
           },
           ropsten: {
-            networkCheckTimeout: 10000,
+            
             // must be a thunk, otherwise truffle commands may hang in CI
             provider: () =>
               new HDWalletProvider(process.env.MNEMONIC, process.env.RPC_URL),
