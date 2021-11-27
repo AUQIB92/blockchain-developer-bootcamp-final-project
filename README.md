@@ -126,7 +126,7 @@ npm start
 ## Directory Structure
 Key files and folders structures are as below:
 
-'''
+```
    .gitattributes
 │   .gitignore
 │   avoiding_common_attacks.md
@@ -201,7 +201,7 @@ Key files and folders structures are as below:
 └───test
         exceptionsHelpers.js
         RealEstate.js
-'''
+```
 ## Screencast
 
 [![Watch the video]](https://youtu.be/k4KD9x16hZY)
