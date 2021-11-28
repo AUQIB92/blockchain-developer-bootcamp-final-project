@@ -65,13 +65,7 @@ contract("RealEstate", accounts => {
         await catchRevert(instance.registerAsset(Mayor, type, { from: owner }));
     })
 
-    it('Address other than Mayor Should not be able to mint NFT', async () => {
-        // Mints a NFT
-        //const price = web3.utils.toBN(2*10**18);
-        const owner = accounts[1];
-        const type = "Building";
-        await catchRevert(instance.registerAsset(Mayor, type, { from: owner }));
-    })
+   
 
     it('Should Set NFT for Sale', async () => {
         const owner = accounts[1];
