@@ -218,19 +218,18 @@ Key files and folders structures are as below:
 ```
 
   Contract: RealEstate
-    √ is owned by Mayor (77ms)
+    √ is owned by Mayor (95ms)
     √ Should have an address
-    √ NFT Collection Should have a name (63ms)
-    √ NFT Collection Should have a Symbol (54ms)
-    √ Should be able to mint NFT (738ms)
-    √ Addresses other than Mayor Should not be able to mint NFT (440ms)
-    √ Address other than Mayor Should not be able to mint NFT (324ms)
-    √ Should Set NFT for Sale (1299ms)
-    √ Should approve Buyer (1404ms)
-    √ Should Transfer NFT Asset (2628ms)
+    √ NFT Collection Should have a name (87ms)
+    √ NFT Collection Should have a Symbol (123ms)
+    √ Should be able to mint NFT (1427ms)
+    √ Addresses other than Mayor Should not be able to mint NFT (947ms)
+    √ Should Set NFT for Sale (2150ms)
+    √ Should approve Buyer (2682ms)
+    √ Should Transfer NFT Asset (4438ms)
 
 
-  10 passing (13s)
+  9 passing (20s)
 
   ```
 ## Screencast
